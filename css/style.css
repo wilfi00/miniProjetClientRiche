@@ -1,0 +1,25 @@
+body{
+  font-family : Arial;
+  background-color : #AEE3F5;
+  color : #013991;
+}
+
+#commForm{
+  height : 100%;
+}
+
+#commWrap{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);text-align : center
+}
+
+h1,h2,h3,h4,h5,h6{
+  text-shadow:white 1px 1px,white -1px 1px,white -1px -1px,white 1px -1px;
+}
+
+#photoNb{
+  width : 45px;
+}
