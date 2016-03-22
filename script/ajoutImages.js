@@ -24,4 +24,8 @@ $(document).ready(function()
     ajout();
     ajoutTable();
   });
+
+  $("#dialog").dialog({
+    autoOpen = false;
+  });
 });
