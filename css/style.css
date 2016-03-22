@@ -1,15 +1,15 @@
 body{
-  font-family : Arial;
-  background-color : #AEE3F5;
-  color : #013991;
+  background-color : #AEE3F5 !important;
+  color : #013991 !important;
 }
 
-#commForm{
+.container{
   height : 100%;
 }
 
 #commWrap{
   position: absolute;
+  width: 70%;
   top: 30%;
   left: 50%;
   margin-right: -50%;
@@ -21,5 +21,5 @@ h1,h2,h3,h4,h5,h6{
 }
 
 #photoNb{
-  width : 45px;
+  width : 48px;
 }
