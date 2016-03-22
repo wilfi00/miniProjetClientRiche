@@ -20,12 +20,10 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="script/autocomplete.js"></script>
+    <script type="text/javascript" src="script/jqueryUI.js"></script>
+    <script type="text/javascript" src="script/ajoutImages.js"></script>
     <!-- Tabs JQuery UI -->
-    <script>
-      $(function() {
-        $( "#tabs" ).tabs();
-      });
-    </script>
+
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -36,11 +34,7 @@
     <![endif]-->
 
     <!-- Tabs JQuery -->
-    <script>
-      $(function() {
-        $( "#tabs" ).tabs();
-      });
-    </script>
+
 
   </head>
   <body>
@@ -48,7 +42,7 @@
     <div class="container">
 
       <div id="commWrap">
-      <button type="button" class="btn btn-default" aria-label="Left Align">
+      <button id="recherche" type="button" class="btn btn-default" aria-label="Left Align">
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
       </button>
 
@@ -68,6 +62,16 @@
         </ul>
         <div id="tabs-1">
           <p> Vue photo </p>
+            <!-- Liste des images -->
+            <ul id="vuePhoto">
+            </ul>
+
+            <!-- Fenêtre modal à afficher si il n'y a pas de photos -->
+            <div id="dialog" title="Oops...">
+              Aucune photo pour cette commune
+            </div>
+            <!-- Fenêtre modal à afficher si il n'y a pas de photos -->
+
         </div>
         <div id="tabs-2">
           <p> Vue tableau </p>
