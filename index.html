@@ -7,7 +7,7 @@
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Flick par commune</title>
+    <title>Flicker par commune</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -16,12 +16,10 @@
     <link href="#" rel="stylesheet">
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="script/autocomplete.js"></script>
-    <script src="script/jquery-1.12.0.min.js"></script>
     <!-- Tabs JQuery UI -->
     <script>
       $(function() {
@@ -50,19 +48,19 @@
     <div class="container">
 
       <div id="commWrap">
-      <button type="button" class="btn btn-default" aria-label="Left Align">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-      </button>
 
       <form id="commForm">
 
-          <h1 id="commLabel">Entrez une commune :</h1>
+          <h1 id="commLabel">Entrez une commune</h1>
           <input id="commune" type="text" name="commune"><br/><br/><br/>
           <h3 style="display : inline">Nombre de photos :</h3>&nbsp;
-          <input id="photoNb" type="number" name="rows" min="1">
+          <input id="photoNb" type="number" name="rows" min="1"><br/><br/>
+          <button id="search" type="button" class="btn btn-default" aria-label="Left Align">
+            Rechercher&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
 
       </form>
-      <br/><br/><br/>
+      <br/><br/>
       <div id="tabs">
         <ul>
           <li><a href="#tabs-1">Photos</a></li>
@@ -70,6 +68,15 @@
         </ul>
         <div id="tabs-1">
           <p> Vue photo </p>
+          <!-- Liste des images -->
+          <ul id="vuePhoto">
+          </ul>
+
+          <!-- Fenêtre modal à afficher si il n'y a pas de photos -->
+          <div id="dialog" title="Oops...">
+            Aucune photo pour cette commune
+          </div>
+          <!-- Fenêtre modal à afficher si il n'y a pas de photos -->
         </div>
         <div id="tabs-2">
           <p> Vue tableau </p>
