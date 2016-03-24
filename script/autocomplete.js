@@ -2,9 +2,15 @@ $(document).ready(function(){
 
   function ajout(urlList)
   {
+
+    /*alert(urlList.length)
+    var test = urlList.slice(98);
+    alert(test.length)
+    alert(test)*/
     $.each(urlList, function(index, value)
     {
-      $("#vuePhoto").append("<li> <img src='" + value + "'alt='image' height='320' width='420'> </li> </br></br></br>");
+      $("#tabs-1").append("<img src='" + value + "'\></img><br/><br/>");
+
     });
 
   }
