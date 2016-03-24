@@ -1,5 +1,9 @@
 $(document).ready(function()
 {
+  $("#dialog").dialog({
+    autoOpen: true
+  });
+
   function ajout()
   {
     urlIMG = ["https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F0%2F0e%2FAtlanta_Zoo_Panda.jpg&f=1","https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F0%2F0e%2FAtlanta_Zoo_Panda.jpg&f=1"];
@@ -19,13 +23,11 @@ $(document).ready(function()
     $('#photos').DataTable();
   }
 
-  $("#recherche").on("click", function()
+  $("#search").on("click", function()
   {
     ajout();
     ajoutTable();
   });
 
-  $("#dialog").dialog({
-    autoOpen = false;
-  });
+
 });
