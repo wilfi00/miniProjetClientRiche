@@ -7,18 +7,25 @@
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Flicker par commune</title>
+    <title>Flickr par commune</title>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+      <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+      <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="/script/bootstrap.js"></script>
+    <script type="text/javascript" src="/script/bootstrap.min.js"></script>
 
     <!-- CSS perso ?-->
-    <link href="#" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+
+      <!-- Affichage table -->
+      <script type="text/javascript" src="/script/jquery.dataTables.min.js"></script>
+      <link rel="stylesheet" href="css/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/autocomplete.js"></script>
     <!-- Tabs JQuery UI -->
     <script>
@@ -51,7 +58,7 @@
 
       <form id="commForm">
 
-          <h1 id="commLabel">Entrez une commuvne</h1>
+          <h1 id="commLabel">Entrez une commune</h1>
           <input id="commune" type="text" name="commune"><br/><br/><br/>
           <h3 style="display : inline">Nombre de photos :</h3>&nbsp;
           <input id="photoNb" type="number" name="rows" min="1"><br/><br/>
@@ -78,6 +85,22 @@
         </div>
         <div id="tabs-2">
           <p> Vue tableau </p>
+          <table id="photos" class="display" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Nom</th>
+                    <th>Heure</th>
+                    <th>ID photographe</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+          </table>
         </div>
 
       </div>
@@ -89,5 +112,4 @@
 
 
 
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 </html>

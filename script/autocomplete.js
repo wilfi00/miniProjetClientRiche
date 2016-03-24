@@ -15,6 +15,16 @@ $(document).ready(function(){
 
   }
 
+  function ajoutTable(urlIMG)
+  {
+    $.each(urlIMG, function(index, value)
+    {
+      $("#photos").append("<tr> <td> <img src='" + value + "'alt='image' height='42' width='42'> </td> </tr> </br></br></br>");
+    });
+    $('#photos').DataTable();
+  }
+
+
   $(function() {
 
     var autocomp = function(request,response){
@@ -68,6 +78,7 @@ $(document).ready(function(){
             urlTab.push("https://farm"+farm+".staticflickr.com/"+serv+"/"+id+"_"+secret+".jpg");
           }
           ajout(urlTab);
+          ajoutTable(urlTab);
         }
       },
       error : function(res, statut, erreur){
