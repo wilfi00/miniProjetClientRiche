@@ -13,14 +13,21 @@ function ajout(urlList)
 
 }
 
-function ajoutTable(urlIMG)
+function ajoutTable(data)
 {
-  $.each(urlIMG, function(index, value)
+  urlIMG = data[0];
+  nameIMG = data[1];
+  var t = $('#photos').DataTable();
+  t.clear();
+  for(var i = 0; i < urlIMG.length; i++)
   {
-    $("#photos").append("<tr> <td> <img src='" + value + "'alt='image' height='42' width='42'> </td> </tr> </br></br></br>");
-  });
-  $('#photos').DataTable();
+      t.row.add([ "<img src='" + urlIMG[i] + "'/>", nameIMG[i], "test2", "test3"]);
+  }
+  t.draw();
+
 }
+
+
 
 function jsonFlickrApi(data) {
   if (data.length == 0) {
@@ -29,22 +36,27 @@ function jsonFlickrApi(data) {
   else {
     photoList = data.photos.photo
     urlTab = [];
+    nameTab = [];
     imgNumber = $("#photoNb").val();
+    // 0/20, faut faire par rapport au nombre de photos retournés
     for (var i = 0; i < imgNumber; i++) {
       farm = photoList[i].farm;
       serv = photoList[i].server;
       id = photoList[i].id;
       secret = photoList[i].secret;
+      name = photoList[i].title;
       urlTab.push("https://farm"+farm+".staticflickr.com/"+serv+"/"+id+"_"+secret+".jpg");
+      nameTab.push(name);
     }
     ajout(urlTab);
-    ajoutTable(urlTab);
+    ajoutTable([urlTab,nameTab]);
   }
 }
 
 $(document).ready(function(){
+  $( "#tabs" ).tabs();
 
-  $(function() {
+  /*$(function() {
 
     var autocomp = function(request,response){
       $.ajax({
@@ -71,8 +83,7 @@ $(document).ready(function(){
       source: autocomp,
       minLength: 3,
     });
-  });
-
+  });*/
   $("#search").click(function(){
     var comm = $("#commune").val();
 
@@ -83,7 +94,8 @@ $(document).ready(function(){
       jsonpCallback: 'jsonFlickrApi',
       data : { method : 'flickr.photos.search',api_key : '9f6a93b5d37c5b05bd630638f3c952d3', tags : comm, format : 'json', jsoncallback : '?' },
       success : function(res){},
-      error : function(res, statut, erreur){
+      error : function(res, statut, erreur)
+      {
         alert("Fatal error :/");
       },
       complete : function(res, statut){}
