@@ -1,29 +1,47 @@
+function ajout(urlList)
+{
+
+  /*alert(urlList.length)
+  var test = urlList.slice(98);
+  alert(test.length)
+  alert(test)*/
+  $.each(urlList, function(index, value)
+  {
+    $("#tabs-1").append("<img src='" + value + "'\></img><br/><br/>");
+
+  });
+
+}
+
+function ajoutTable(urlIMG)
+{
+  $.each(urlIMG, function(index, value)
+  {
+    $("#photos").append("<tr> <td> <img src='" + value + "'alt='image' height='42' width='42'> </td> </tr> </br></br></br>");
+  });
+  $('#photos').DataTable();
+}
+
+function jsonFlickrApi(data) {
+  if (data.length == 0) {
+    alert("Nothing was found :/");
+  }
+  else {
+    photoList = data.photos.photo
+    urlTab = [];
+    for (var i = 0; i < photoList.length; i++) {
+      farm = photoList[i].farm;
+      serv = photoList[i].server;
+      id = photoList[i].id;
+      secret = photoList[i].secret;
+      urlTab.push("https://farm"+farm+".staticflickr.com/"+serv+"/"+id+"_"+secret+".jpg");
+    }
+    ajout(urlTab);
+    ajoutTable(urlTab);
+  }
+}
+
 $(document).ready(function(){
-
-  function ajout(urlList)
-  {
-
-    /*alert(urlList.length)
-    var test = urlList.slice(98);
-    alert(test.length)
-    alert(test)*/
-    $.each(urlList, function(index, value)
-    {
-      $("#tabs-1").append("<img src='" + value + "'\></img><br/><br/>");
-
-    });
-
-  }
-
-  function ajoutTable(urlIMG)
-  {
-    $.each(urlIMG, function(index, value)
-    {
-      $("#photos").append("<tr> <td> <img src='" + value + "'alt='image' height='42' width='42'> </td> </tr> </br></br></br>");
-    });
-    $('#photos').DataTable();
-  }
-
 
   $(function() {
 
@@ -63,26 +81,8 @@ $(document).ready(function(){
       dataType: 'jsonp',
       jsonpCallback: 'jsonFlickrApi',
       data : { method : 'flickr.photos.search',api_key : '9f6a93b5d37c5b05bd630638f3c952d3', tags : comm, format : 'json', jsoncallback : '?' },
-      success : function(res){
-        if (res.length == 0) {
-          alert("Nothing was found :/");
-        }
-        else {
-          photoList = res.photos.photo
-          urlTab = [];
-          for (var i = 0; i < photoList.length; i++) {
-            farm = photoList[i].farm;
-            serv = photoList[i].server;
-            id = photoList[i].id;
-            secret = photoList[i].secret;
-            urlTab.push("https://farm"+farm+".staticflickr.com/"+serv+"/"+id+"_"+secret+".jpg");
-          }
-          ajout(urlTab);
-          ajoutTable(urlTab);
-        }
-      },
+      success : function(res){},
       error : function(res, statut, erreur){
-        console.log(res +" " + statut + " " + erreur)
         alert("Fatal error :/");
       },
       complete : function(res, statut){}
