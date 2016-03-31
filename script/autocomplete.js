@@ -1,6 +1,6 @@
 function ajout(urlList)
 {
-
+  $("#tabs-1").html("");
   /*alert(urlList.length)
   var test = urlList.slice(98);
   alert(test.length)
@@ -29,7 +29,8 @@ function jsonFlickrApi(data) {
   else {
     photoList = data.photos.photo
     urlTab = [];
-    for (var i = 0; i < photoList.length; i++) {
+    imgNumber = $("#photoNb").val();
+    for (var i = 0; i < imgNumber; i++) {
       farm = photoList[i].farm;
       serv = photoList[i].server;
       id = photoList[i].id;
