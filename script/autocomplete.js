@@ -1,10 +1,7 @@
 function ajout(urlList)
 {
   $("#tabs-1").html("");
-  /*alert(urlList.length)
-  var test = urlList.slice(98);
-  alert(test.length)
-  alert(test)*/
+
   $.each(urlList, function(index, value)
   {
     $("#tabs-1").append("<img src='" + value + "'\></img><br/><br/>");
@@ -17,18 +14,20 @@ function ajoutTable(data)
 {
   urlIMG = data[0];
   nameIMG = data[1];
+  position = data[2];
   var t = $('#photos').DataTable();
   t.clear();
   for(var i = 0; i < urlIMG.length; i++)
   {
-      t.row.add([ "<img src='" + urlIMG[i] + "'/>", nameIMG[i], "test2", "test3"]);
+      t.row.add([ "<img src='" + urlIMG[i] + "'/>", nameIMG[i], "test2", "test3", position[i] ]);
   }
   t.draw();
 
 }
 
+
 function jsonFlickrApi(data) {
-  var nbPhotoAPI = data.length;
+  var nbPhotoAPI = data.photos.photo.length;
   if (nbPhotoAPI == 0) {
     alert("Nothing was found :/");
   }
@@ -36,13 +35,14 @@ function jsonFlickrApi(data) {
     photoList = data.photos.photo
     urlTab = [];
     nameTab = [];
+    pLocation = [];
     imgNumber = $("#photoNb").val();
-    alert(nbPhotoAPI);
     if(imgNumber > nbPhotoAPI){
       imgNumber = nbPhotoAPI;
     }
-    // 0/20, faut faire par rapport au nombre de photos retournés
-    for (var i = 0; i < imgNumber; i++) {
+
+    for (var i = 0; i < imgNumber; i++)
+    {
       farm = photoList[i].farm;
       serv = photoList[i].server;
       id = photoList[i].id;
@@ -50,9 +50,23 @@ function jsonFlickrApi(data) {
       name = photoList[i].title;
       urlTab.push("https://farm"+farm+".staticflickr.com/"+serv+"/"+id+"_"+secret+".jpg");
       nameTab.push(name);
+
+      /* Commenter à partir d'ici si tu en as marre des erreurs :o */
+      apiKey = '9f6a93b5d37c5b05bd630638f3c952d3';
+      $.getJSON('http://api.flickr.com/services/rest/?&amp;method=flickr.photos.geo.getLocation&amp;api_key=' + apiKey + '&amp;photo_id=' + id + '&amp;format=jsonp&amp;jsoncallback=?',
+      function(data)
+      {
+         //if the image has a location, build an html snippet containing the data
+         if(data.stat != 'fail')
+         {
+           pLocation.push('<a href="http://www.flickr.com/map?fLat=' + photoList[i].location.latitude + '&amp;fLon=' + photoList[i].location.longitude + '&amp;zl=1" target="_blank">' + photoList[i].location.locality._content + ', ' + photoList[i].location.region._content + ' (Click for Map)</a>');
+         }
+       });
+       /* Jusqu'ici ;) */
+
     }
     ajout(urlTab);
-    ajoutTable([urlTab,nameTab]);
+    ajoutTable([urlTab,nameTab,pLocation]);
   }
 }
 $(document).ready(function(){
@@ -62,7 +76,7 @@ $(document).ready(function(){
   });
 
 
-  $(function() {
+  /*$(function() {
 
     var autocomp = function(request,response){
       $.ajax({
@@ -89,7 +103,7 @@ $(document).ready(function(){
       source: autocomp,
       minLength: 3,
     });
-  });
+  });*/
 
   function research(){
     var comm = $("#commune").val();
