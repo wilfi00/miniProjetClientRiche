@@ -27,10 +27,9 @@ function ajoutTable(data)
 
 }
 
-
-
 function jsonFlickrApi(data) {
-  if (data.length == 0) {
+  var nbPhotoAPI = data.length;
+  if (nbPhotoAPI == 0) {
     alert("Nothing was found :/");
   }
   else {
@@ -38,6 +37,10 @@ function jsonFlickrApi(data) {
     urlTab = [];
     nameTab = [];
     imgNumber = $("#photoNb").val();
+    alert(nbPhotoAPI);
+    if(imgNumber > nbPhotoAPI){
+      imgNumber = nbPhotoAPI;
+    }
     // 0/20, faut faire par rapport au nombre de photos retournés
     for (var i = 0; i < imgNumber; i++) {
       farm = photoList[i].farm;
@@ -52,11 +55,14 @@ function jsonFlickrApi(data) {
     ajoutTable([urlTab,nameTab]);
   }
 }
-
 $(document).ready(function(){
   $( "#tabs" ).tabs();
+  $( "#datepicker" ).datepicker({
+    dateFormat: "yy-mm-dd"
+  });
 
-  /*$(function() {
+
+  $(function() {
 
     var autocomp = function(request,response){
       $.ajax({
@@ -83,16 +89,18 @@ $(document).ready(function(){
       source: autocomp,
       minLength: 3,
     });
-  });*/
-  $("#search").click(function(){
+  });
+
+  function research(){
     var comm = $("#commune").val();
+    var date = $("datepicker").val();
 
     $.ajax({
       url : 'https://api.flickr.com/services/rest/',
       type : 'GET',
       dataType: 'jsonp',
       jsonpCallback: 'jsonFlickrApi',
-      data : { method : 'flickr.photos.search',api_key : '9f6a93b5d37c5b05bd630638f3c952d3', tags : comm, format : 'json', jsoncallback : '?' },
+      data : { method : 'flickr.photos.search',api_key : '9f6a93b5d37c5b05bd630638f3c952d3', tags : comm, format : 'json', jsoncallback : '?', min_upload_date : date },
       success : function(res){},
       error : function(res, statut, erreur)
       {
@@ -100,6 +108,19 @@ $(document).ready(function(){
       },
       complete : function(res, statut){}
     });
+  }
+
+  $("#search").click(function(){research();});
+  $("#commune").keyup(function (e) {
+    if (e.keyCode == 13) {
+      research();
+    }
   });
+  $("#photoNb").keyup(function (e) {
+    if (e.keyCode == 13) {
+      research();
+    }
+  });
+
 
 });
