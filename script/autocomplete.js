@@ -25,6 +25,33 @@ function ajoutTable(data)
 
 }
 
+function geolocalisation(id)
+{
+  apiKey = '9f6a93b5d37c5b05bd630638f3c952d3';
+  $.ajax({
+    url : 'https://api.flickr.com/services/rest/',
+    type : 'GET',
+    dataType: 'xml',
+    data : { method : 'flickr.photos.geo.getLocation',api_key : '9f6a93b5d37c5b05bd630638f3c952d3', photo_id : id, format : 'json', jsoncallback : '?'},
+    success: function(data){
+      addLocalisation(data);
+    },
+    complete : function(data, status){
+
+    }
+  });
+}
+
+function addLocalisation(data){
+  alert("test");
+  if(data.stat != 'fail') {
+    pLocation.push('<a href="http://www.flickr.com/map?fLat=' + data.photo.location.latitude + '&amp;fLon=' + data.photo.location.longitude + '&amp;zl=1" target="_blank">' + data.photo.location.locality._content + ', ' + data.photo.location.region._content + ' (Click for Map)</a>');
+  }
+  else{
+    pLocation.push("0");
+  }
+}
+
 
 function jsonFlickrApi(data) {
   var nbPhotoAPI = data.photos.photo.length;
@@ -52,16 +79,9 @@ function jsonFlickrApi(data) {
       nameTab.push(name);
 
       /* Commenter à partir d'ici si tu en as marre des erreurs :o */
-      apiKey = '9f6a93b5d37c5b05bd630638f3c952d3';
-      $.getJSON('http://api.flickr.com/services/rest/?&amp;method=flickr.photos.geo.getLocation&amp;api_key=' + apiKey + '&amp;photo_id=' + id + '&amp;format=jsonp&amp;jsoncallback=?',
-      function(data)
-      {
-         //if the image has a location, build an html snippet containing the data
-         if(data.stat != 'fail')
-         {
-           pLocation.push('<a href="http://www.flickr.com/map?fLat=' + photoList[i].location.latitude + '&amp;fLon=' + photoList[i].location.longitude + '&amp;zl=1" target="_blank">' + photoList[i].location.locality._content + ', ' + photoList[i].location.region._content + ' (Click for Map)</a>');
-         }
-       });
+      geolocalisation(id);
+      pLocation[i] = 0;
+
        /* Jusqu'ici ;) */
 
     }
